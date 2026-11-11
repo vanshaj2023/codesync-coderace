@@ -1,0 +1,12 @@
+[
+  { "inputs": [["eat", "tea", "tan", "ate", "nat", "bat"]], "is_hidden": false, "expected": [["bat"], ["nat", "tan"], ["ate", "eat", "tea"]] },
+  { "inputs": [[""]], "is_hidden": false, "expected": [[""]] },
+  { "inputs": [["a"]], "is_hidden": false, "expected": [["a"]] },
+  { "inputs": [["cab", "tin", "pew", "duh", "may", "ill", "buy", "bar", "max", "doc"]], "is_hidden": true, "expected": [["bar"], ["buy"], ["cab"], ["doc"], ["duh"], ["ill"], ["max"], ["may"], ["pew"], ["tin"]] },
+  { "inputs": [[""]], "is_hidden": true, "expected": [[""]] },
+  { "inputs": [["", "b"]], "is_hidden": true, "expected": [[""], ["b"]] },
+  { "inputs": [["", ""]], "is_hidden": true, "expected": [["", ""]] },
+  { "inputs": [["ddddddddddg", "dgggggggggg"]], "is_hidden": true, "expected": [["ddddddddddg"], ["dgggggggggg"]] },
+  { "inputs": [["boo", "bob"]], "is_hidden": true, "expected": [["bob"], ["boo"]] },
+  { "inputs": [["listen", "silent", "enlist", "google", "gogole", "apple"]], "is_hidden": true, "expected": [["apple"], ["gogole", "google"], ["enlist", "listen", "silent"]] }
+]

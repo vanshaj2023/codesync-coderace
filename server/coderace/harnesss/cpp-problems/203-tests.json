@@ -1,0 +1,55 @@
+[
+  { "inputs": [[[1, 2, 6, 3, 4, 5, 6], 6]], "is_hidden": false, "expected": [1, 2, 3, 4, 5] },
+  { "inputs": [[[1, 2, 3], 3]], "is_hidden": false, "expected": [1, 2] },
+  { "inputs": [[[1, 2, 3, 4], 1]], "is_hidden": false, "expected": [2, 3, 4] },
+  { "inputs": [[[10, 20, 30, 40], 20]], "is_hidden": false, "expected": [10, 30, 40] },
+  { "inputs": [[[5, 5, 5, 5, 1], 5]], "is_hidden": false, "expected": [1] },
+
+  { "inputs": [[[], 1]], "is_hidden": true, "expected": [] },
+  { "inputs": [[[1], 1]], "is_hidden": true, "expected": [] },
+  { "inputs": [[[2], 1]], "is_hidden": true, "expected": [2] },
+  { "inputs": [[[7], 7]], "is_hidden": true, "expected": [] },
+  { "inputs": [[[0], 0]], "is_hidden": true, "expected": [] },
+
+  { "inputs": [[[7, 7], 7]], "is_hidden": true, "expected": [] },
+  { "inputs": [[[7, 7, 7], 7]], "is_hidden": true, "expected": [] },
+  { "inputs": [[[7, 7, 7, 7], 7]], "is_hidden": true, "expected": [] },
+  { "inputs": [[[7, 7, 7, 7, 7, 7, 7, 7, 7, 7], 7]], "is_hidden": true, "expected": [] },
+  { "inputs": [[[1, 1, 1, 1, 1, 1, 1], 1]], "is_hidden": true, "expected": [] },
+
+  { "inputs": [[[1, 2, 3, 4, 5], 1]], "is_hidden": true, "expected": [2, 3, 4, 5] },
+  { "inputs": [[[1, 1, 2, 3, 4], 1]], "is_hidden": true, "expected": [2, 3, 4] },
+  { "inputs": [[[1, 1, 1, 2, 3], 1]], "is_hidden": true, "expected": [2, 3] },
+  { "inputs": [[[9, 9, 9, 8, 7, 6], 9]], "is_hidden": true, "expected": [8, 7, 6] },
+  { "inputs": [[[2, 2, 3, 3, 3], 2]], "is_hidden": true, "expected": [3, 3, 3] },
+
+  { "inputs": [[[1, 2, 3, 4, 5], 5]], "is_hidden": true, "expected": [1, 2, 3, 4] },
+  { "inputs": [[[1, 2, 3, 5, 5], 5]], "is_hidden": true, "expected": [1, 2, 3] },
+  { "inputs": [[[1, 2, 5, 5, 5], 5]], "is_hidden": true, "expected": [1, 2] },
+  { "inputs": [[[9, 8, 7, 6, 9, 9, 9], 9]], "is_hidden": true, "expected": [9, 8, 7, 6] },
+  { "inputs": [[[3, 3, 3, 2, 2], 2]], "is_hidden": true, "expected": [3, 3, 3] },
+
+  { "inputs": [[[1, 2, 2, 2, 3], 2]], "is_hidden": true, "expected": [1, 3] },
+  { "inputs": [[[1, 10, 10, 10, 10, 1], 10]], "is_hidden": true, "expected": [1, 1] },
+  { "inputs": [[[5, 8, 8, 8, 8, 8, 9], 8]], "is_hidden": true, "expected": [5, 9] },
+  { "inputs": [[[100, 200, 200, 300], 200]], "is_hidden": true, "expected": [100, 300] },
+  { "inputs": [[[1, 2, 3, 4, 4, 4, 4, 5, 6], 4]], "is_hidden": true, "expected": [1, 2, 3, 5, 6] },
+
+  { "inputs": [[[1, 2, 1, 2, 1, 2], 1]], "is_hidden": true, "expected": [2, 2, 2] },
+  { "inputs": [[[1, 2, 1, 2, 1, 2], 2]], "is_hidden": true, "expected": [1, 1, 1] },
+  { "inputs": [[[5, 6, 5, 6, 5, 6, 5], 5]], "is_hidden": true, "expected": [6, 6, 6] },
+  { "inputs": [[[9, 0, 9, 0, 9, 0], 0]], "is_hidden": true, "expected": [9, 9, 9] },
+  { "inputs": [[[0, 9, 0, 9, 0, 9], 0]], "is_hidden": true, "expected": [9, 9, 9] },
+
+  { "inputs": [[[1, 2, 3, 4, 5], 99]], "is_hidden": true, "expected": [1, 2, 3, 4, 5] },
+  { "inputs": [[[10, 20, 30], 40]], "is_hidden": true, "expected": [10, 20, 30] },
+  { "inputs": [[[1, 1, 1], 2]], "is_hidden": true, "expected": [1, 1, 1] },
+  { "inputs": [[[5, 5, 5, 5], 6]], "is_hidden": true, "expected": [5, 5, 5, 5] },
+  { "inputs": [[[1000], 1001]], "is_hidden": true, "expected": [1000] },
+
+  { "inputs": [[[-1, -2, -3, -1, -4], -1]], "is_hidden": true, "expected": [-2, -3, -4] },
+  { "inputs": [[[-5, -5, -5], -5]], "is_hidden": true, "expected": [] },
+  { "inputs": [[[0, 0, 0, 1, 0, 0], 0]], "is_hidden": true, "expected": [1] },
+  { "inputs": [[[1, 0, 0, 0, 1], 0]], "is_hidden": true, "expected": [1, 1] },
+  { "inputs": [[[-99, -99, 100, -99], -99]], "is_hidden": true, "expected": [100] }
+]

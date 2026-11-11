@@ -1,0 +1,8 @@
+[
+  { "inputs": [[1, 2, 3]], "is_hidden": false, "expected": "firstsecondthird" },
+  { "inputs": [[1, 3, 2]], "is_hidden": false, "expected": "firstsecondthird" },
+  { "inputs": [[2, 1, 3]], "is_hidden": true, "expected": "firstsecondthird" },
+  { "inputs": [[2, 3, 1]], "is_hidden": true, "expected": "firstsecondthird" },
+  { "inputs": [[3, 1, 2]], "is_hidden": true, "expected": "firstsecondthird" },
+  { "inputs": [[3, 2, 1]], "is_hidden": true, "expected": "firstsecondthird" }
+]

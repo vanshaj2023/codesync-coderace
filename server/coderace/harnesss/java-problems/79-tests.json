@@ -1,0 +1,52 @@
+[
+  {
+    "inputs": [[["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], "ABCCED"],
+    "is_hidden": false,
+    "expected": true
+  },
+  {
+    "inputs": [[["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], "SEE"],
+    "is_hidden": false,
+    "expected": true
+  },
+  {
+    "inputs": [[["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], "ABCB"],
+    "is_hidden": false,
+    "expected": false
+  },
+  {
+    "inputs": [[["a"]], "a"],
+    "is_hidden": true,
+    "expected": true
+  },
+  {
+    "inputs": [[["a"]], "b"],
+    "is_hidden": true,
+    "expected": false
+  },
+  {
+    "inputs": [[["a","a","a","a"],["a","a","a","a"],["a","a","a","a"]], "aaaaaaaaaaaaa"],
+    "is_hidden": true,
+    "expected": false
+  },
+  {
+    "inputs": [[["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]], "ABCDEFGHIJKLMNOPQRSTUVWXYZ"],
+    "is_hidden": true,
+    "expected": true
+  },
+  {
+    "inputs": [[["A"],["B"],["C"],["D"],["E"],["F"],["G"]], "ABCDEFG"],
+    "is_hidden": true,
+    "expected": true
+  },
+  {
+    "inputs": [[["A","A","A","A","A","A"],["A","A","A","A","A","A"],["A","A","A","A","A","A"],["A","A","A","A","A","A"],["A","A","A","A","A","A"],["A","A","A","A","A","B"]], "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB"],
+    "is_hidden": true,
+    "expected": true
+  },
+  {
+    "inputs": [[["A","B","C","D"],["L","M","N","E"],["K","P","O","F"],["J","I","H","G"]], "ABCDEFGHIJKLMNOP"],
+    "is_hidden": true,
+    "expected": true
+  }
+]

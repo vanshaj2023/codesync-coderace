@@ -1,0 +1,22 @@
+[
+  {
+    "inputs": [[[1, 2, 3, 4, 5]]],
+    "is_hidden": false,
+    "expected": [5, 4, 3, 2, 1]
+  },
+  {
+    "inputs": [[[1, 2]]],
+    "is_hidden": false,
+    "expected": [2, 1]
+  },
+  {
+    "inputs": [[[]]],
+    "is_hidden": true,
+    "expected": []
+  },
+  {
+    "inputs": [[[-10, -9, -8]]],
+    "is_hidden": true,
+    "expected": [-8, -9, -10]
+  }
+]

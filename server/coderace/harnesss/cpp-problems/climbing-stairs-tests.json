@@ -1,0 +1,27 @@
+[
+  {
+    "inputs": [2],
+    "is_hidden": false,
+    "expected": 2
+  },
+  {
+    "inputs": [3],
+    "is_hidden": false,
+    "expected": 3
+  },
+  {
+    "inputs": [4],
+    "is_hidden": true,
+    "expected": 5
+  },
+  {
+    "inputs": [5],
+    "is_hidden": true,
+    "expected": 8
+  },
+  {
+    "inputs": [45],
+    "is_hidden": true,
+    "expected": 1836311903
+  }
+]

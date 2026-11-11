@@ -1,0 +1,92 @@
+[
+  {
+    "commands": ["Trie", "insert", "search", "search", "startsWith", "insert", "search"],
+    "args": [[], ["apple"], ["apple"], ["app"], ["app"], ["app"], ["app"]],
+    "expected": [null, null, true, false, true, null, true],
+    "is_hidden": false
+  },
+  {
+    "commands": ["Trie", "search", "startsWith"],
+    "args": [[], ["a"], ["a"]],
+    "expected": [null, false, false],
+    "is_hidden": false
+  },
+  {
+    "commands": ["Trie", "insert", "startsWith", "search"],
+    "args": [[], ["a"], ["a"], ["a"]],
+    "expected": [null, null, true, true],
+    "is_hidden": true
+  },
+  {
+    "commands": ["Trie", "insert", "insert", "insert", "search", "search", "search", "search"],
+    "args": [[], ["cat"], ["car"], ["cart"], ["cat"], ["car"], ["cart"], ["c"]],
+    "expected": [null, null, null, null, true, true, true, false],
+    "is_hidden": true
+  },
+  {
+    "commands": ["Trie", "insert", "insert", "startsWith", "startsWith", "startsWith", "startsWith"],
+    "args": [[], ["cat"], ["car"], ["c"], ["ca"], ["cat"], ["car"]],
+    "expected": [null, null, null, true, true, true, true],
+    "is_hidden": true
+  },
+  {
+    "commands": ["Trie", "insert", "search", "startsWith"],
+    "args": [[], ["hello"], ["helloa"], ["helloa"]],
+    "expected": [null, null, false, false],
+    "is_hidden": true
+  },
+  {
+    "commands": ["Trie", "insert", "insert", "search", "startsWith"],
+    "args": [[], ["aaaaaaaaaa"], ["aaaaaaaaa"], ["aaaaaaaaa"], ["aaaaaaaa"]],
+    "expected": [null, null, null, true, true],
+    "is_hidden": true
+  },
+  {
+    "commands": ["Trie", "insert", "insert", "search", "search", "startsWith", "insert", "search"],
+    "args": [[], ["code"], ["coder"], ["code"], ["coder"], ["cod"], ["cod"], ["cod"]],
+    "expected": [null, null, null, true, true, true, null, true],
+    "is_hidden": true
+  },
+  {
+    "commands": ["Trie", "insert", "insert", "search", "search", "startsWith", "startsWith"],
+    "args": [[], ["a"], ["ab"], ["a"], ["ab"], ["a"], ["ab"]],
+    "expected": [null, null, null, true, true, true, true],
+    "is_hidden": true
+  },
+  {
+    "commands": ["Trie", "insert", "search", "insert", "search", "startsWith"],
+    "args": [[], ["abc"], ["abc"], ["ab"], ["ab"], ["ab"]],
+    "expected": [null, null, true, null, true, true],
+    "is_hidden": true
+  },
+  {
+    "commands": ["Trie", "insert", "insert", "insert", "insert", "search", "search", "search", "search", "search"],
+    "args": [[], ["run"], ["runner"], ["running"], ["runs"], ["run"], ["runner"], ["running"], ["runs"], ["ru"]],
+    "expected": [null, null, null, null, null, true, true, true, true, false],
+    "is_hidden": true
+  },
+  {
+    "commands": ["Trie", "insert", "insert", "startsWith", "startsWith", "startsWith"],
+    "args": [[], ["z"], ["zz"], ["z"], ["zz"], ["zzz"]],
+    "expected": [null, null, null, true, true, false],
+    "is_hidden": true
+  },
+  {
+    "commands": ["Trie", "insert", "search", "startsWith", "insert", "search"],
+    "args": [[], ["java"], ["jav"], ["jav"], ["jav"], ["jav"]],
+    "expected": [null, null, false, true, null, true],
+    "is_hidden": true
+  },
+  {
+    "commands": ["Trie", "insert", "insert", "search", "search", "startsWith", "startsWith"],
+    "args": [[], ["xyz"], ["xyza"], ["xyz"], ["xyza"], ["xyz"], ["xyza"]],
+    "expected": [null, null, null, true, true, true, true],
+    "is_hidden": true
+  },
+  {
+    "commands": ["Trie", "insert", "insert", "insert", "search", "search", "search", "startsWith", "startsWith"],
+    "args": [[], ["abcd"], ["abce"], ["abcf"], ["abcd"], ["abce"], ["abcf"], ["abc"], ["ab"]],
+    "expected": [null, null, null, null, true, true, true, true, true],
+    "is_hidden": true
+  }
+]

@@ -1,0 +1,12 @@
+[
+  { "inputs": [[1, 2, 3, 4, 5]], "is_hidden": false, "expected": [5, 4, 3, 2, 1] },
+  { "inputs": [[1, 2]], "is_hidden": false, "expected": [2, 1] },
+  { "inputs": [[1]], "is_hidden": false, "expected": [1] },
+  { "inputs": [[]], "is_hidden": false, "expected": [] },
+  { "inputs": [[10, 20, 30, 40, 50, 60, 70, 80]], "is_hidden": true, "expected": [80, 70, 60, 50, 40, 30, 20, 10] },
+  { "inputs": [[-5, -4, -3, -2, -1, 0, 1, 2, 3]], "is_hidden": true, "expected": [3, 2, 1, 0, -1, -2, -3, -4, -5] },
+  { "inputs": [[9, 9, 9, 9, 9]], "is_hidden": true, "expected": [9, 9, 9, 9, 9] },
+  { "inputs": [[100, 200]], "is_hidden": true, "expected": [200, 100] },
+  { "inputs": [[1, 3, 5, 7, 9, 11, 13, 15, 17, 19]], "is_hidden": true, "expected": [19, 17, 15, 13, 11, 9, 7, 5, 3, 1] },
+  { "inputs": [[2, 4, 6, 8, 10, 12, 14, 16, 18, 20]], "is_hidden": true, "expected": [20, 18, 16, 14, 12, 10, 8, 6, 4, 2] }
+]

@@ -1,6 +1,27 @@
+# Dependencies
+node_modules/
 
-/node_modules
+# Environment variables (the .example files stay tracked)
 .env
-README.md
+.env.*
+!.env.example
+
+# Build output
+build/
+dist/
+dist-ssr/
+
+# Logs
+*.log
+
+# Editors and OS files
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Problem dataset the CodeRace seeders pull in
+server/coderace/leetcode-problems-master/
+
+# Claude Code
 .claude/
 CLAUDE.md

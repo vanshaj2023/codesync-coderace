@@ -2,38 +2,41 @@
 
 Real-time collaborative code editor. Multiple users share a room, type in one editor, see each other's cursors, and run code together. Sync is built on Yjs (a CRDT) over Socket.IO, with room state persisted to MongoDB.
 
+This document covers CodeSync, one of the two products in this repository (the other is CodeRace). For the combined site, the landing page, and deployment, see [README.md](README.md).
+
 ## 1. Folder Structure
 
+The CodeSync parts of the repository (see the README for the full tree):
+
 ```
-CodeSync-2-main/
-├── package.json              Server deps and scripts (dev, build, start)
-├── README.md                 Project overview
-├── ARCHITECTURE.md           This file
-├── server/
-│   ├── index.js              Express + Socket.IO bootstrap, /compile, store selection, graceful shutdown, serves client/build
-│   ├── Actions.js            Socket event names (shared contract with the client)
-│   └── collab/
-│       ├── index.js              setupCollab(): wires Socket.IO events to the room registry
-│       ├── room-registry.js      One Y.Doc per live room, checkpointing, final save, shutdown flush
-│       ├── sanitize-awareness.js Whitelists cursor/user data before relaying it to peers
-│       ├── mongo-room-store.js   MongoDB persistence (load/save/close)
-│       └── memory-room-store.js  In-memory fallback when MONGODB_URI is unset
-└── client/
-    ├── package.json          React (CRA) app, CodeMirror 6, Yjs deps
-    ├── public/               index.html, images, manifest
-    └── src/
-        ├── index.js, App.js  Router setup and routes (/, /Home, /editor/:roomId)
-        ├── Actions.js        Socket event names (client copy)
-        ├── Socket.js         Backend URL resolution and Socket.IO client creation
-        ├── collab/
-        │   ├── socket-provider.js  Syncs a Y.Doc and Awareness over Socket.IO
-        │   ├── collab-session.js   Builds Y.Doc + Awareness + provider for one room visit
-        │   └── user-colors.js      Deterministic cursor color from username
-        └── components/
-            ├── HomePage.js, Home.js  Landing page and room join form
-            ├── EditorPage.js         Room UI: members, language, console, socket lifecycle
-            ├── Editor.js             CodeMirror 6 bound to the shared Y.Text
-            └── Client.js             One member row (avatar + name)
+server/
+├── index.js                      Unified entry point: mounts CodeSync and CodeRace, serves the frontends
+└── codesync/
+    ├── index.js                  /api/codesync/compile, store selection, the /collab namespace
+    ├── Actions.js                Socket event names (shared contract with the client)
+    └── collab/
+        ├── index.js                  setupCollab(): wires Socket.IO events to the room registry
+        ├── room-registry.js          One Y.Doc per live room, checkpointing, final save, shutdown flush
+        ├── sanitize-awareness.js     Whitelists cursor/user data before relaying it to peers
+        ├── mongo-room-store.js       MongoDB persistence (load/save/close)
+        └── memory-room-store.js      In-memory fallback when MONGODB_URI is unset
+
+clients/codesync/                 React (CRA) app, CodeMirror 6, Yjs. Built to build/, served at /codesync
+├── package.json                  "homepage": "/codesync" makes every asset URL and the router base path /codesync
+├── public/                       index.html, images, manifest
+└── src/
+    ├── index.js, App.js          Router setup and routes (/, /Home, /editor/:roomId, all under /codesync)
+    ├── Actions.js                Socket event names (client copy)
+    ├── Socket.js                 Backend URL resolution and Socket.IO client creation (/collab namespace)
+    ├── collab/
+    │   ├── socket-provider.js      Syncs a Y.Doc and Awareness over Socket.IO
+    │   ├── collab-session.js       Builds Y.Doc + Awareness + provider for one room visit
+    │   └── user-colors.js          Deterministic cursor color from username
+    └── components/
+        ├── HomePage.js, Home.js    CodeSync landing page and room join form
+        ├── EditorPage.js           Room UI: members, language, console, socket lifecycle
+        ├── Editor.js               CodeMirror 6 bound to the shared Y.Text
+        └── Client.js               One member row (avatar + name)
 ```
 
 ## 2. Big Picture
@@ -50,6 +53,7 @@ CodeMirror <-> Y.Doc <-> Provider  <-- Socket.IO -->  RoomRegistry  <-- Socket.I
 - The server keeps one authoritative `Y.Doc` per room that has at least one connection, relays updates, and saves to the store.
 - Presence (cursors, names) uses the Yjs Awareness protocol over the same socket.
 - Compile output and join/leave roster events are plain Socket.IO events, unchanged in spirit from before.
+- All of this runs on the `/collab` Socket.IO namespace. CodeRace uses `/race` on the same server, so the two products never see each other's rooms or events.
 
 ## 3. The Shared Document
 
@@ -77,7 +81,7 @@ Because the language is in the doc, late joiners and reopened rooms get it for f
 
 ## 5. Lifecycle of a Session
 
-1. User enters room ID and name on `/Home`, navigates to `/editor/:roomId` with the name in router state.
+1. User enters room ID and name on `/codesync/Home`, navigates to `/codesync/editor/:roomId` with the name in router state.
 2. `EditorPage` creates the Socket.IO connection and a collab session (`Y.Doc`, `Awareness`, `SocketProvider`).
 3. On every connect (including reconnects) the provider emits `join`. The server loads the room (from MongoDB if stored), registers the socket, acks, and broadcasts `joined`.
 4. The provider sends its state vector via `yjs-sync`. The server replies with only the updates the client is missing, its own state vector, and a snapshot of everyone's cursors.
@@ -105,18 +109,18 @@ Because the language is in the doc, late joiners and reopened rooms get it for f
 | `CLIENT_ORIGIN` | server | Comma-separated allowed CORS origins |
 | `JDOODLE_CLIENT_ID`, `JDOODLE_CLIENT_SECRET` | server | Code execution API |
 | `PORT` | server | Default 5000 |
-| `REACT_APP_BACKEND_URL` | client build | Backend URL baked into the bundle |
+| `REACT_APP_BACKEND_URL` | client build | Backend URL baked into the bundle. Unset means the page's own origin (or `localhost:5000` in development) |
 
-Server env lives in `server/.env`. Requires Node 20.19 or newer (MongoDB driver 7).
+Server env lives in `server/.env`. Requires Node 20.19 or newer (MongoDB driver 7). The README lists the variables for the whole site, including CodeRace's.
 
-Commands: `npm run dev` (nodemon), `npm start`, `npm run build` (installs both packages and builds the client). In development run the client with `npm start` inside `client/`.
+Commands (from the repository root): `npm run dev` (server with nodemon), `npm start`, `npm run build` (installs everything and builds both frontends), `npm run dev:codesync` (CodeSync dev server at `http://localhost:3000/codesync/`).
 
 ## 7a. Known Limits
 
 - Single server process only. Scaling out needs room-sticky routing or a pub/sub layer.
 - Final save makes 3 attempts over about 1.3 seconds, then drops and logs the unsaved edits.
 - Socket.IO caps a single client message at 1 MB by default.
-- `public/index.html` references two script files that do not exist (`jquery/jquery.js`, `js/bootstrap.min.js`), causing a harmless console error.
+- `clients/codesync/public/index.html` references two script files that do not exist (`jquery/jquery.js`, `js/bootstrap.min.js`), causing two harmless 404s in the browser console.
 
 ## 8. Fifty Questions and Answers
 
@@ -158,7 +162,7 @@ The maintained Yjs binding, `y-codemirror.next`, targets CM6. The CM5 binding wa
 The project had no database; Mongo was first in the stack and stores binary blobs naturally. It sits behind a three-method store interface, so swapping databases is one file.
 
 **12. Can I use PostgreSQL instead?**
-Yes. Write a store with `load(roomId)`, `save(roomId, state)`, `close()` and select it in `server/index.js`.
+Yes. Write a store with `load(roomId)`, `save(roomId, state)`, `close()` and select it in `createRoomStore` in `server/codesync/index.js`.
 
 **13. Why is the JOIN an acknowledged request?**
 The server must finish loading the doc before the client starts syncing. The ack is the "ready" signal.
@@ -270,16 +274,16 @@ No. A second join is rejected with `ALREADY_JOINED`.
 ### Running and extending
 
 **46. How do I run it locally?**
-Set `server/.env`, run `npm install` in the root and in `client/`, start the server with `npm run dev`, and the client with `npm start` inside `client/`. Open `http://localhost:3000/Home`.
+Set `server/.env`, run `npm install` in the root and in `clients/codesync/`, start the server with `npm run dev`, and the client with `npm run dev:codesync`. Open `http://localhost:3000/codesync/Home`. To see the whole site as it runs in production, use `npm run build && npm start` and open `http://localhost:5000`.
 
 **47. How does production serve the frontend?**
-`npm run build` builds the client, and `server/index.js` serves `client/build` and falls back to `index.html` for all other routes.
+`npm run build` builds every frontend, and `server/index.js` serves the CodeSync build at `/codesync`, falls back to its `index.html` for any route without a file extension, and returns 404 for missing assets. The landing page and CodeRace are served the same way at `/` and `/coderace`.
 
 **48. How do I add a new shared field, like a room title?**
 Put it in `doc.getMap("meta")` via `collab.meta.set(...)` and observe it in a React effect, the way `EditorPage` does for `language`. It syncs and persists automatically.
 
 **49. How do I add another awareness field, like "is typing"?**
-Set it with `awareness.setLocalStateField(...)` on the client, and add it to the whitelist in `server/collab/sanitize-awareness.js` or the server will drop it.
+Set it with `awareness.setLocalStateField(...)` on the client, and add it to the whitelist in `server/codesync/collab/sanitize-awareness.js` or the server will drop it.
 
 **50. How do I change syntax highlighting per language?**
 Today the editor always uses JavaScript mode. Add a CodeMirror `Compartment` in `Editor.js`, import the matching `@codemirror/lang-*` package, and reconfigure it when `meta.language` changes.

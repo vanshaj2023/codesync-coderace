@@ -1,0 +1,40 @@
+<svg width="48" height="46" viewBox="0 0 1240 1240" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background: rounded square, near-black -->
+  <rect x="0" y="0" width="1240" height="1240" rx="230" ry="230" fill="#070b0a"/>
+
+  <!-- C letterform (white) -->
+  <path d="
+    M 505 400
+    L 358 400
+    C 240 400 155 495 155 620
+    C 155 745 240 840 358 840
+    L 505 840
+    L 578 750
+    L 358 750
+    C 292 750 248 695 248 620
+    C 248 545 292 490 358 490
+    L 505 490
+    L 578 400
+    Z
+  " fill="#ffffff"/>
+
+  <!-- R letterform (orange) -->
+  <path d="
+    M 578 400
+    L 505 490
+    L 730 490
+    C 800 490 848 535 848 590
+    C 848 645 800 690 730 690
+    L 570 690
+    L 800 970
+    L 920 970
+    L 748 763
+    C 855 748 942 675 942 590
+    C 942 480 855 400 730 400
+    Z
+  " fill="#5ed29c"/>
+
+  <!-- Two dots -->
+  <circle cx="948" cy="900" r="45" fill="#ffffff"/>
+  <circle cx="1078" cy="900" r="45" fill="#5ed29c"/>
+</svg>
