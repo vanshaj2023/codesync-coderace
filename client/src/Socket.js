@@ -6,7 +6,7 @@ export const getBackendUrl = () => {
     }
 
     return process.env.NODE_ENV === 'production'
-        ? 'https://codesync-hmt6.onrender.com'
+        ? window.location.origin
         : 'http://localhost:5000';
 };
 
